@@ -35,8 +35,8 @@ export class UserService {
     return this.http.post<User>(this.userUrl, user);
   }
 
-  updateUser(user: User): Observable<User> {
-    return this.http.put<User>(this.userUrl.concat('/' + user.id), user);
+  updateUser(id: string, user: User): Observable<User> {
+    return this.http.put<User>(this.userUrl.concat('/' + id), user);
   }
 
   deleteUser(id: string): Observable<User> {

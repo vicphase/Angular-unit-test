@@ -1,3 +1,7 @@
+<h1>Table of users</h1>
+<button [routerLink]="['user']">Add user</button>
 <div *ngFor="let user of users">
   {{user.firstName}} {{user.lastName}}
+  <a [routerLink]="['user', user.id]">Edit</a>
+  <a href="#" (click)="deleteUser(user)">Delete</a>
 </div>

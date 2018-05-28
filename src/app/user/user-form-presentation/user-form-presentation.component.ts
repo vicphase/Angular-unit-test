@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
 
@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user.model';
 })
 export class UserFormPresentationComponent implements OnInit {
   form: FormGroup;
+  @Output() saveEmitter: EventEmitter<any> = new EventEmitter();
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       firstName: '',
@@ -20,5 +21,9 @@ export class UserFormPresentationComponent implements OnInit {
 
   populateFields(user: User) {
     this.form.patchValue(user);
+  }
+
+  saveUser(): void {
+    this.saveEmitter.emit();
   }
 }

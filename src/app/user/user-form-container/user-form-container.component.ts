@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { UserService } from '../user.service';
-import { ActivatedRoute } from '@angular/router';
-import { UserFormPresentationComponent } from 'src/app/user/user-form-presentation/user-form-presentation.component';
-import { tap, takeUntil } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs/internal/Subject';
+import { takeUntil, tap } from 'rxjs/operators';
+import { UserFormPresentationComponent } from 'src/app/user/user-form-presentation/user-form-presentation.component';
+
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user-form-container',
@@ -13,13 +14,17 @@ import { Subject } from 'rxjs/internal/Subject';
 })
 export class UserFormContainerComponent implements OnInit, OnDestroy {
   @ViewChild('form') userFormPresentationComponent: UserFormPresentationComponent;
+  userId: string;
+  existingUser: boolean;
   private destroy$ = new Subject<void>();
-  constructor(private userService: UserService, private route: ActivatedRoute) {}
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
+    this.existingUser = false;
+  }
 
   ngOnInit() {
-    const id = this.route.snapshot.params['id'];
-    if (id) {
-      this.getUser(id);
+    this.userId = this.route.snapshot.params['id'];
+    if (this.userId) {
+      this.getUser(this.userId);
     }
   }
 
@@ -34,8 +39,23 @@ export class UserFormContainerComponent implements OnInit, OnDestroy {
       .pipe(
         tap(user => {
           this.userFormPresentationComponent.populateFields(user);
+          this.existingUser = true;
         })
       )
+      .pipe(takeUntil(this.destroy$))
+      .subscribe();
+  }
+
+  saveUser(): void {
+    const formValue = this.userFormPresentationComponent.form.value;
+    let saveUser$;
+    if (this.existingUser) {
+      saveUser$ = this.userService.updateUser(this.userId, formValue);
+    } else {
+      saveUser$ = this.userService.createUser(formValue);
+    }
+    saveUser$
+      .pipe(tap(() => this.router.navigate([''])))
       .pipe(takeUntil(this.destroy$))
       .subscribe();
   }
