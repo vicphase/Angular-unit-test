@@ -6,14 +6,16 @@ import { User } from 'src/app/models/user.model';
 import { UserService } from '../user.service';
 
 @Component({
-  selector: 'app-user-table-container',
-  templateUrl: './user-table-container.component.html',
-  styleUrls: ['./user-table-container.component.scss']
+  selector: 'app-user-table',
+  templateUrl: './user-table.component.html',
+  styleUrls: ['./user-table.component.scss']
 })
-export class UserTableContainerComponent implements OnInit, OnDestroy {
+export class UserTableComponent implements OnInit, OnDestroy {
   users: Array<User>;
   private destroy$ = new Subject<void>();
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+    this.users = [];
+  }
 
   ngOnInit() {
     this.getUsers();

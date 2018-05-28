@@ -1,25 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { User } from 'src/app/models/user.model';
+import { userServiceMock } from 'src/tests/app-service-mocks/user.service.mock';
 
 import { UserService } from '../user.service';
-import { UserTableContainerComponent } from './user-table-container.component';
-import { userServiceMock } from 'src/tests/app-service-mocks/user.service.mock';
-import { UserModule } from '../user.module';
+import { UserTableComponent } from './user-table.component';
 
-describe('UserTableContainerComponent', () => {
-  let component: UserTableContainerComponent;
-  let fixture: ComponentFixture<UserTableContainerComponent>;
+describe('UserTableComponent', () => {
+  let component: UserTableComponent;
+  let fixture: ComponentFixture<UserTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [UserTableContainerComponent],
+      declarations: [UserTableComponent],
       providers: [{ provide: UserService, useValue: userServiceMock }]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserTableContainerComponent);
+    fixture = TestBed.createComponent(UserTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

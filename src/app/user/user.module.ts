@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { UserFormContainerComponent } from './user-form-container/user-form-container.component';
 import { UserFormPresentationComponent } from './user-form-presentation/user-form-presentation.component';
-import { UserTableContainerComponent } from './user-table-container/user-table-container.component';
+import { UserTableComponent } from './user-table/user-table.component';
 import { UserService } from './user.service';
 
 @NgModule({
@@ -15,7 +15,7 @@ import { UserService } from './user.service';
     RouterModule.forChild([
       {
         path: '',
-        component: UserTableContainerComponent
+        component: UserTableComponent
       },
       {
         path: 'user',
@@ -27,7 +27,7 @@ import { UserService } from './user.service';
       }
     ])
   ],
-  declarations: [UserTableContainerComponent, UserFormContainerComponent, UserFormPresentationComponent],
+  declarations: [UserTableComponent, UserFormContainerComponent, UserFormPresentationComponent],
   providers: [UserService]
 })
 export class UserModule {}
