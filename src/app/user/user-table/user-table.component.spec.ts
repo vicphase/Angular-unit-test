@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { User } from 'src/app/models/user.model';
@@ -13,7 +14,8 @@ describe('UserTableComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UserTableComponent],
-      providers: [{ provide: UserService, useValue: userServiceMock }]
+      providers: [{ provide: UserService, useValue: userServiceMock }],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 

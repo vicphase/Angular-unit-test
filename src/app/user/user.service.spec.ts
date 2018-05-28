@@ -6,7 +6,7 @@ import { HttpError } from '../models/http-error.model';
 import { User } from '../models/user.model';
 import { UserService } from './user.service';
 
-fdescribe('UserService', () => {
+describe('UserService', () => {
   let service: UserService;
   let httpTestingControler: HttpTestingController;
   beforeEach(() => {

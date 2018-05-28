@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
+import { activatedRouteMock } from 'src/tests/angular-service-mocks/activated-route.mock';
+import { routerMock } from 'src/tests/angular-service-mocks/router.mock';
+import { userServiceMock } from 'src/tests/app-service-mocks/user.service.mock';
+import { user } from 'src/tests/interface-object-mocks/user.mock';
 
-import { activatedRouteMock } from '../../../tests/angular-services-mocks/activated-route.mock';
-import { userServiceMock } from '../../../tests/app-service-mocks/user.service.mock';
-import { user } from '../../../tests/interface-object-mocks/user.mock';
 import { UserService } from '../user.service';
 import { UserFormContainerComponent } from './user-form-container.component';
 
@@ -24,9 +25,8 @@ describe('UserFormContainerComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UserFormContainerComponent, UserFormPresentationMockComponent],
-      providers: [
-        { provide: ActivatedRoute, useValue: activatedRouteMock }
-      ]
+      providers: [{ provide: ActivatedRoute, useValue: activatedRouteMock }, { provide: Router, useValue: routerMock }],
+      schemas: [NO_ERRORS_SCHEMA]
     });
     TestBed.overrideProvider(UserService, { useValue: userServiceMock });
     TestBed.compileComponents();
