@@ -13,8 +13,7 @@ import { UserService } from '../user.service';
 export class UserTableContainerComponent implements OnInit, OnDestroy {
   users: Array<User>;
   private destroy$ = new Subject<void>();
-  constructor(private userService: UserService) {
-  }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.getUsers();
@@ -29,7 +28,7 @@ export class UserTableContainerComponent implements OnInit, OnDestroy {
     this.userService
       .getUsers()
       .pipe(
-        tap(users => {
+        tap((users: Array<User>) => {
           this.users = users;
         })
       )

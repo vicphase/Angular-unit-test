@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-user-form-presentation',
@@ -13,9 +14,11 @@ export class UserFormPresentationComponent implements OnInit {
       firstName: '',
       lastName: ''
     });
-   }
-
-  ngOnInit() {
   }
 
+  ngOnInit() {}
+
+  populateFields(user: User) {
+    this.form.patchValue(user);
+  }
 }
